@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+
+<!--
+Copyright (C) 2010 J. Elfring
+
+Dieses Programm ist freie Software. Sie koennen es unter den Bedingungen der
+GNU General Public License, wie von der Free Software Foundation veroeffentlicht,
+weitergeben und/oder modifizieren, entweder gemaess Version 3 der Lizenz oder
+(nach Ihrer Wahl) jeder spaeteren Version.
+
+Die Veroeffentlichung dieses Programms erfolgt in der Hoffnung, dass es Ihnen von
+Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die implizite
+Garantie der MARKTREIFE oder der VERWENDBARKEIT FUER EINEN BESTIMMTEN ZWECK.
+Details finden Sie in der GNU General Public License.
+
+Sie sollten ein Exemplar der GNU General Public License zusammen mit diesem
+Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
+-->
+
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:at="http://www.w3.org/2005/Atom" xmlns:gd="http://schemas.google.com/g/2005" version="1.0">
+<xsl:output method="xml" version="1.0" encoding="iso-8859-1" indent="yes"/>
+
+  <xsl:template match="/">
+    <phonebooks>
+      <phonebook>
+        <!-- Eintraege selektieren die mindestens eine der interessanten Telefonnummern enthalten -->
+        <xsl:apply-templates select="at:feed/at:entry[gd:phoneNumber/@rel='http://schemas.google.com/g/2005#mobile' or gd:phoneNumber/@rel='http://schemas.google.com/g/2005#home' or gd:phoneNumber/@rel='http://schemas.google.com/g/2005#work']"/>
+      </phonebook>
+    </phonebooks>
+  </xsl:template>
+
+  <xsl:template match="at:feed/at:entry">
+    <contact>
+      <category/>
+      <person>
+        <realName>
+          <xsl:value-of select="at:title"/>
+        </realName>
+        <imageUrl/>
+      </person>
+      <telephony>
+        <!-- Jeweils den ersten Eintrag pro @rel selektieren -->
+        <xsl:apply-templates select="gd:phoneNumber[not(@rel=preceding-sibling::gd:phoneNumber/@rel)]"/>
+      </telephony>
+      <services>
+        <email/>
+      </services>
+      <setup>
+        <ringTone/>
+        <ringVolume/>
+      </setup>
+    </contact>
+  </xsl:template>
+
+  <xsl:template match="gd:phoneNumber">
+    <!-- Der erste Eintrag bekomt prio=1 -->
+    <xsl:variable name="prio">
+      <xsl:choose>
+        <xsl:when test="position() = 1">1</xsl:when>
+        <xsl:otherwise>0</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <!-- Nummertyp auswerten -->
+    <xsl:variable name="type">
+      <xsl:choose>
+        <xsl:when test="@rel = 'http://schemas.google.com/g/2005#mobile'">mobile</xsl:when>
+        <xsl:when test="@rel = 'http://schemas.google.com/g/2005#home'">home</xsl:when>
+        <xsl:when test="@rel = 'http://schemas.google.com/g/2005#work'">work</xsl:when>
+        <xsl:otherwise>SKIP</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <!-- Nummer formatieren -->
+    <xsl:variable name="number">
+      <xsl:choose>
+	<!-- Inland -->
+        <xsl:when test="contains(.,'+49')">
+          <!-- +49 durch 0 ersetzen -->
+          <xsl:variable name="tmpnumber"><xsl:value-of select="concat('0',substring-after(.,'+49'))"/></xsl:variable>
+          <!-- nicht Ziffern entfernen -->
+          <xsl:value-of select="translate($tmpnumber,translate($tmpnumber,'1234567890',''),'')"/>
+	</xsl:when>
+	<!-- Ausland -->
+        <xsl:otherwise>
+          <!-- nicht Ziffern oder + entfernen -->
+          <xsl:value-of select="translate(.,translate(.,'1234567890+',''),'')"/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+
+<!-- Ausgabe -->
+    <xsl:if test="$type != 'SKIP'">
+      <number type="{$type}" prio="{$prio}"><xsl:value-of select="$number"/></number>
+    </xsl:if>
+  </xsl:template>
+
+</xsl:stylesheet>
