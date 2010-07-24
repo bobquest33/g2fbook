@@ -1,26 +1,27 @@
 <?xml version="1.0"?>
 
 <!--
-Copyright (C) 2010 J. Elfring
+    Copyright (C) 2010 J. Elfring
 
-Dieses Programm ist freie Software. Sie koennen es unter den Bedingungen der
-GNU General Public License, wie von der Free Software Foundation veroeffentlicht,
-weitergeben und/oder modifizieren, entweder gemaess Version 3 der Lizenz oder
-(nach Ihrer Wahl) jeder spaeteren Version.
 
-Die Veroeffentlichung dieses Programms erfolgt in der Hoffnung, dass es Ihnen von
-Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die implizite
-Garantie der MARKTREIFE oder der VERWENDBARKEIT FUER EINEN BESTIMMTEN ZWECK.
-Details finden Sie in der GNU General Public License.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-Sie sollten ein Exemplar der GNU General Public License zusammen mit diesem
-Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:at="http://www.w3.org/2005/Atom" xmlns:gd="http://schemas.google.com/g/2005" version="1.0">
 <xsl:output method="text" version="1.0" encoding="iso-8859-1" indent="no"/>
 
-<!-- NewLine fuer die Ausgabe -->
+<!-- NewLine for later reuse -->
 <xsl:variable name="newLine"><xsl:text>
 </xsl:text></xsl:variable>
 
@@ -31,17 +32,17 @@ Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
     <xsl:value-of select="$newLine"/>
     <xsl:text disable-output-escaping="yes"></xsl:text>
     <xsl:value-of select="$newLine"/>
-    <!-- Eintraege selektieren die mindestens eine der interessanten Telefonnummern enthalten -->
+    <!-- Continue if the entry containes at least one interesting phone number -->
     <xsl:apply-templates select="at:feed/at:entry[gd:phoneNumber/@rel='http://schemas.google.com/g/2005#mobile' or gd:phoneNumber/@rel='http://schemas.google.com/g/2005#home' or gd:phoneNumber/@rel='http://schemas.google.com/g/2005#work']"/>
   </xsl:template>
 
   <xsl:template match="at:feed/at:entry">
-    <!-- Jeweils den ersten Eintrag pro @rel selektieren -->
+    <!-- if thre are multiple number of one type (rel) use only the first one -->
     <xsl:apply-templates select="gd:phoneNumber[not(@rel=preceding-sibling::gd:phoneNumber/@rel)]"/>
   </xsl:template>
 
   <xsl:template match="gd:phoneNumber">
-    <!-- Nummerntyp auswerten -->
+    <!-- evaluate type of number -->
     <xsl:variable name="ctype">
       <xsl:choose>
         <xsl:when test="@rel = 'http://schemas.google.com/g/2005#mobile'">M</xsl:when>
@@ -55,15 +56,15 @@ Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
     <xsl:variable name="nname"><xsl:value-of select="substring-after($title,' ')"/></xsl:variable>
     <xsl:variable name="vname"><xsl:value-of select="substring($title,1,1)"/></xsl:variable>
     <xsl:variable name="lname"><xsl:value-of select="concat($vname,' ',$nname)"/></xsl:variable>
-	<!-- Max Laenge begrenzen und Typ hinzufuegen-->
+	<!-- cut max length (30 - space - type) -->
     <xsl:variable name="cname"><xsl:value-of select="concat(substring($lname,1,28),' ',$ctype)"/></xsl:variable>
-    <!-- laufende Nummer -->
+    <!-- entry count -->
     <xsl:variable name="lnum"><xsl:number format="1" level="any"/></xsl:variable>
-    <!-- Telefonnummer (Alles ausser + und Ziffern entfernen)-->
+    <!-- remove everythin but numbers and + -->
     <xsl:variable name="cnumber">
 	<xsl:value-of select = "translate(.,translate(.,'1234567890+',''),'')" />
     </xsl:variable>
-    <!-- Ausgabe -->
+    <!-- generate output -->
     <xsl:if test="$ctype != 'SKIP'">
       <xsl:text disable-output-escaping="yes">[PhonePBK</xsl:text><xsl:value-of select="$lnum"/><xsl:text disable-output-escaping="yes">]</xsl:text>
       <xsl:value-of select="$newLine"/>
