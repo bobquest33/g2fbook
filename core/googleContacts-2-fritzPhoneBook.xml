@@ -44,13 +44,19 @@
         <xsl:apply-templates select="gd:phoneNumber[not(@rel=preceding-sibling::gd:phoneNumber/@rel)]"/>
       </telephony>
       <services>
-        <email/>
+	<!-- insert email that is marked a primary
+        <email/> -->
+	<xsl:apply-templates select="gd:email[@primary='true']"/>
       </services>
       <setup>
         <ringTone/>
         <ringVolume/>
       </setup>
     </contact>
+  </xsl:template>
+
+  <xsl:template match="gd:email">
+    <email classifier="private"><xsl:value-of select="./@address"/></email>
   </xsl:template>
 
   <xsl:template match="gd:phoneNumber">
