@@ -1,4 +1,5 @@
 #summary Format of the boxes phonebook backup file
+#labels Restrict-AddWikiComment-Commit,reverse-engineering
 
 ... or what I found out until now ...
 
@@ -19,7 +20,7 @@
         <number type="work" prio="0">0251999888</number>
       </telephony>
       <services>
-        <email/>
+        <email classifier="private">a@b.c</email>
       </services>
       <setup>
         <ringTone/>
