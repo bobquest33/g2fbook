@@ -1,0 +1,8 @@
+Version 1.0 2010-07-20
+	Initial release
+
+Version 1.1 2010-08-22
+	English translation
+	AVM Fritz!Box: Primary email will be added to phonebook
+	Gammu: No cutting of firstname if there is no lastname
+	
