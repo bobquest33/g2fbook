@@ -53,9 +53,18 @@
     </xsl:variable>
     <!-- Contactname -->
     <xsl:variable name="title"><xsl:value-of select="../at:title"/></xsl:variable>
-    <xsl:variable name="nname"><xsl:value-of select="substring-after($title,' ')"/></xsl:variable>
-    <xsl:variable name="vname"><xsl:value-of select="substring($title,1,1)"/></xsl:variable>
-    <xsl:variable name="lname"><xsl:value-of select="concat($vname,' ',$nname)"/></xsl:variable>
+    <xsl:variable name="lname">   
+        <xsl:choose>
+            <xsl:when test="contains($title,' ')">
+                <xsl:variable name="nname"><xsl:value-of select="substring-after($title,' ')"/></xsl:variable>
+                <xsl:variable name="vname"><xsl:value-of select="substring($title,1,1)"/></xsl:variable>
+                <xsl:value-of select="concat($vname,' ',$nname)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$title"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
 	<!-- cut max length (30 - space - type) -->
     <xsl:variable name="cname"><xsl:value-of select="concat(substring($lname,1,28),' ',$ctype)"/></xsl:variable>
     <!-- entry count -->
