@@ -1,20 +1,5 @@
 #!/bin/bash
 #########################################################################################
-##
-#	g2fbox.sh
-#
-# Something to download google contacts and to reuse them in other formats.
-#
-# Requirements
-# GNU Linux / Cygwin Umgebung with these tools in path:
-#  -bash
-#  -curl
-#  -tr
-#  -grep
-#  -xsltproc (contained in gnome libxslt)
-#
-#
-#########################################################################################
 #     
 #     Copyright (C) 2010 J. Elfring
 #     
@@ -41,7 +26,7 @@ echo ""
 echo "*g2fbook.sh - Copyright (C) 2010 J. Elfring"
 echo "*This program comes with ABSOLUTELY NO WARRANTY."
 echo "*This is free software, and you are welcome to redistribute it"
-echo "*for further details please look into this file."
+echo "*for further details please look into license.txt"
 echo ""
 
 # Help!
