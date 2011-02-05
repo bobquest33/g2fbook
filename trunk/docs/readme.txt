@@ -39,6 +39,10 @@ GNU Linux / Cygwin environment with theese tools in path:
  xsltproc (contained in gnome libxslt)
 
 
+Thankyou!
+ Ralf Heiringhoff
+
+
 License:
 Copyright (C) 2010 J. Elfring
 This program is free software: you can redistribute it and/or modify

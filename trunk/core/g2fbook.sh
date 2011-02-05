@@ -30,16 +30,30 @@ echo "*for further details please look into license.txt"
 echo ""
 
 # Help!
-if [ $# != 3 -o  _$1 != _F -a _$1 != _G -a _$1 != _B ]
+if [ $# -lt 2 -o $# -gt 3 -o  _${1} != _F -a _${1} != _G -a _${1} != _B -o -z "${2}" ]
 then
 	echo " Invocation:"
-	echo " $ sh $0 {F|G|B} username@gmail.com password "
+	echo " $ sh $0 {F|G|B} username@gmail.com [password]"
 	echo "   F - Create phone book backup for AVM Fritz!Box"
 	echo "   G - Create backup file for gammu/wammu (mobile phone book backup)"
 	echo "   B - Create both files"
 	echo "   username and password for your google account"
+	echo "   if the password is not provided on the commandline,"
+	echo "   the script will ask for it."
 	echo ""
 	exit 99
+fi
+
+if [ $# -eq 2 ]
+then
+	echo " Please enter Password for ${2} Account"
+	echo -e " Password: \c"
+	# Hide input from Terminal
+	stty_orig=`stty -g`
+	stty -echo
+	read googlePass
+	stty $stty_orig
+	echo -e "\n"
 fi
 
 
