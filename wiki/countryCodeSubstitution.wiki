@@ -1,3 +1,5 @@
+#summary About possible problems outside Germany.
+
 Currently, the transformation does some substitution to the country code in all phone numbers.<br>
 If the number on gmail starts with +49, this code will be substituted by 0. Eg. +491234567 will become 01234567.<br>
 This is ok as long as you are in Germany, but you will experience problems if not.
