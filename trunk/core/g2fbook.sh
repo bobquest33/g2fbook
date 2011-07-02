@@ -18,9 +18,8 @@
 #
 #########################################################################################
 
-option=$1
-googleEmail=$2
-googlePass=$3
+googleEmail=$1
+googlePass=$2
 
 echo ""
 echo "*g2fbook.sh - Copyright (C) 2010 J. Elfring"
@@ -30,13 +29,10 @@ echo "*for further details please look into license.txt"
 echo ""
 
 # Help!
-if [ $# -lt 2 -o $# -gt 3 -o  _${1} != _F -a _${1} != _G -a _${1} != _B -o -z "${2}" ]
+if [ $# -lt 1 -o $# -gt 2 ]
 then
 	echo " Invocation:"
-	echo " $ sh $0 {F|G|B} username@gmail.com [password]"
-	echo "   F - Create phone book backup for AVM Fritz!Box"
-	echo "   G - Create backup file for gammu/wammu (mobile phone book backup)"
-	echo "   B - Create both files"
+	echo " $ sh $0 username@gmail.com [password]"
 	echo "   username and password for your google account"
 	echo "   if the password is not provided on the commandline,"
 	echo "   the script will ask for it."
@@ -44,9 +40,9 @@ then
 	exit 99
 fi
 
-if [ $# -eq 2 ]
+if [ $# -eq 1 ]
 then
-	echo " Please enter Password for ${2} Account"
+	echo " Please enter Password for ${1}"
 	echo -e " Password: \c"
 	# Hide input from Terminal
 	stty_orig=`stty -g`
@@ -71,7 +67,7 @@ googleAuth=$(curl https://www.google.com/accounts/ClientLogin \
 		)
 if [ $? != 0 ]
 then
-        echo "Authentication failed."
+        echo "Authentication failed for $googleEmail"
 	echo $googleAuth
         exit 1
 fi
@@ -86,22 +82,16 @@ curl http://www.google.com/m8/feeds/contacts/$googleEmail/full?max-results=99999
 	> googleContacts.$$.xml
 if [ $? != 0 ]
 then
-        echo "Download of contact feed failed"
+        echo "Download of contact feed failed for $googleEmail"
         exit 2
 fi
 
 
-if [ $option == F -o $option == B ]
-then	
-	echo "Writing FritzBoxPhoneBook.xml..."
-	xsltproc googleContacts-2-fritzPhoneBook.xml googleContacts.$$.xml > FritzBoxPhoneBook.xml
-fi	
+echo "Writing FritzBoxPhoneBook.xml..."
+xsltproc googleContacts-2-fritzPhoneBook.xml googleContacts.$$.xml > FritzBoxPhoneBook.xml
 
-if [ $option == G -o $option == B ]
-then	
-	echo "Writing GammuPhoneBookBackup.txt..."
-	xsltproc googleContacts-2-gammuPhoneBackup.xml googleContacts.$$.xml > GammuPhoneBookBackup.txt
-fi	
+echo "Writing GammuPhoneBookBackup.txt..."
+xsltproc googleContacts-2-gammuPhoneBackup.xml googleContacts.$$.xml > GammuPhoneBookBackup.txt
 
 echo ""
 rm -f googleContacts.$$.xml
