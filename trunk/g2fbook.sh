@@ -1,4 +1,4 @@
-#!/bin/bash
+#!bash
 #########################################################################################
 #     
 #     Copyright (C) 2010 J. Elfring
@@ -29,20 +29,30 @@ echo "*for further details please look into license.txt"
 echo ""
 
 # Help!
-if [ $# -lt 1 -o $# -gt 2 ]
+help=`echo $1 | tr -d '[:punct:]'`
+if [ _$help == "_help" -o _$help == "_h" ]
 then
 	echo " Invocation:"
-	echo " $ sh $0 username@gmail.com [password]"
+	echo " $ sh $0 [username@gmail.com [password]]"
+	echo "   sh $0 {-h | --help}"
 	echo "   username and password for your google account"
-	echo "   if the password is not provided on the commandline,"
-	echo "   the script will ask for it."
+	echo "   if username or password are not provided on the"
+	echo "   commandline, the script will ask for it."
 	echo ""
 	exit 99
 fi
 
-if [ $# -eq 1 ]
+if  [ $# -eq 0 ]
 then
-	echo " Please enter Password for ${1}"
+	echo " Plase enter your google account"
+	echo -e " Account: \c"
+	read googleEmail
+fi
+
+
+if [ $# -le 1 ]
+then
+	echo " Please enter Password for $googleEmail"
 	echo -e " Password: \c"
 	# Hide input from Terminal
 	stty_orig=`stty -g`
@@ -53,7 +63,6 @@ then
 fi
 
 
-echo ""
 echo "Downloading data from google..."
 # Google Auth
 googleAuth=$(curl https://www.google.com/accounts/ClientLogin \
@@ -68,6 +77,8 @@ googleAuth=$(curl https://www.google.com/accounts/ClientLogin \
 if [ $? != 0 ]
 then
         echo "Authentication failed for $googleEmail"
+	echo "Please try to logout/login to google via your browser,"
+	echo "perhaps a captcha is required."
 	echo $googleAuth
         exit 1
 fi
@@ -88,10 +99,10 @@ fi
 
 
 echo "Writing FritzBoxPhoneBook.xml..."
-xsltproc googleContacts-2-fritzPhoneBook.xml googleContacts.$$.xml > FritzBoxPhoneBook.xml
+xsltproc lib/googleContacts-2-fritzPhoneBook.xml googleContacts.$$.xml > FritzBoxPhoneBook.xml
 
 echo "Writing GammuPhoneBookBackup.txt..."
-xsltproc googleContacts-2-gammuPhoneBackup.xml googleContacts.$$.xml > GammuPhoneBookBackup.txt
+xsltproc lib/googleContacts-2-gammuPhoneBackup.xml googleContacts.$$.xml > GammuPhoneBookBackup.txt
 
 echo ""
 rm -f googleContacts.$$.xml

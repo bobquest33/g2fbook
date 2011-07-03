@@ -22,15 +22,17 @@ It consists of:
  A shell script to download the contacts (g2fbook.sh),
  The XSLT stylesheets to do the actual conversion,
  Some documents.
+ For native Windows use, it also contains directory with part of the
+ cygwin system and a batch file to set up the environment.
 
 
 Usage:
  Create a directory of your choice.
  Put the files of g2fbook there (I guess you did that by now).
- run 'sh ./g2fbook' from there and the help will show up.
+ run 'sh ./g2fbook -h' from there and the help will show up.
+ On Windows, please start 'g2fbook.bat -h' from a terminal box.
 
-
-Requirements:
+Requirements for the native shell-scripts:
 GNU Linux / Cygwin environment with theese tools in path:
  bash
  curl
@@ -40,7 +42,8 @@ GNU Linux / Cygwin environment with theese tools in path:
 
 
 Thankyou!
- Ralf Heiringhoff
+ Ralf Heiringhoff, for providing the interactive login.
+ Redhat, for building cygwin.
 
 
 License:
@@ -55,4 +58,9 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+The cygwin-rt directory contains a part of the cygwin environment.
+It's components are used to get g2fbook running under windows.
+More information including licensing and source code can be found here:
+http://www.cygwin.com/
 
