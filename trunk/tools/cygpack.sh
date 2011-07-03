@@ -31,7 +31,7 @@ filelist="cygpack.list"
 
 if [ _$1 == _purge ]
 then
-	find $cygdir -mindepth 1 -exec rm {} \;
+	find $cygdir -mindepth 1 -maxdepth 1 -type f -exec rm -f {} \;
 	echo "$cygdir purged, rc=$?"
 fi
 
