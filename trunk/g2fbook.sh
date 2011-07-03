@@ -34,7 +34,7 @@ if [ _$help == "_help" -o _$help == "_h" ]
 then
 	echo " Invocation:"
 	echo " $ sh $0 [username@gmail.com [password]]"
-	echo "   sh $0 {-h | --help}"
+	echo " $ sh $0 {-h | --help}"
 	echo "   username and password for your google account"
 	echo "   if username or password are not provided on the"
 	echo "   commandline, the script will ask for it."
@@ -77,8 +77,9 @@ googleAuth=$(curl https://www.google.com/accounts/ClientLogin \
 if [ $? != 0 ]
 then
         echo "Authentication failed for $googleEmail"
-	echo "Please try to logout/login to google via your browser,"
-	echo "perhaps a captcha is required."
+	echo "If you are sure the credentials were correct,"
+	echo "please try to logout/login to google via your browser."
+	echo "Perhaps a captcha is required."
 	echo $googleAuth
         exit 1
 fi
