@@ -1,4 +1,3 @@
-#!bash
 #########################################################################################
 #     
 #     Copyright (C) 2010 J. Elfring
@@ -66,7 +65,7 @@ fi
 echo "Downloading data from google..."
 # Google Auth
 googleAuth=$(curl https://www.google.com/accounts/ClientLogin \
-		--data Email=$googleEmail -d Passwd=$googlePass \
+		--data-urlencode Email="$googleEmail" --data-urlencode Passwd="$googlePass" \
 		--data accountType=HOSTED_OR_GOOGLE \
 		--data source=g2fbook \
 		--data service=cp \

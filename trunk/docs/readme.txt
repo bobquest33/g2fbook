@@ -44,6 +44,7 @@ GNU Linux / Cygwin environment with theese tools in path:
 Thankyou!
  Ralf Heiringhoff, for providing the interactive login.
  Redhat, for building cygwin.
+ gluc...@gmail.com, for fixing the "funny characters in password" issue.
 
 
 License:
