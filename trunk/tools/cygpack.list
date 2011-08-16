@@ -1,9 +1,0 @@
-bash
-echo
-[
-stty
-curl
-tr
-grep
-xsltproc
-rm

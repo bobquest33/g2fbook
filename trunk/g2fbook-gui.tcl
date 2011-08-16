@@ -1,4 +1,4 @@
-#!wish
+#!/usr/bin/wish
 
 wm title . g2fbook
 wm resizable . 0 0
