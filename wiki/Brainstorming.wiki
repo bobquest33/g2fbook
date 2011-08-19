@@ -1,0 +1,17 @@
+#labels Phase-Design
+#Some ideas that may be implemented
+=Ideas=
+Some ideas that may be implemented
+
+==Automatic import into Box==
+Maybe with expect and telnet: BookToBoxWithTelnet
+
+==Pictures for Contacts==
+The pictures need to reside on an USB device.<br>
+Maybe put them there with ftp/expect or mount/rsync.
+
+==Better Design for running in bg==
+config file with encrypted/obfuscated passwords
+
+==Switch from shell script to ...==
+Java and XSLT fit together.
