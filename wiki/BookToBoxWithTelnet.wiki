@@ -22,8 +22,7 @@ expect "#" {
         send "cat > /tmp/FritzBoxPhoneBook.xml\r"
         sleep 1
         set fp [open FritzBoxPhoneBook.xml r]
-        while {1} {
-                if {-1 == [gets $fp buf]} break
+        while {-1 != [gets $fp buf]} {
                 send -- "$buf\r"
         }
         send "\004"
