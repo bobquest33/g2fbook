@@ -1,0 +1,12 @@
+How to branch with Subclipse
+Nice advice on the subclipse-users mailing list by Mark Phippard
+
+Do Team -> Update on your project so that your entire working copy is updated to a single, known revision.
+Do Team -> Create Branch/Tag and create a branch directly in the repository using that known revision.
+Do Team -> Switch to swap your working copy to the branch. Since it was already based on that revision, this will be quick and simple.
+Do Team -> Commit to commit your changes to the branch.
+Do Team -> Switch to swap back to trunk.
+
+
+more infos here:
+http://www.ankara-gtug.org/2011/06/04/how-to-create-google-code-project-and-synchronize-files-with-svn-repository-using-subclipse/
