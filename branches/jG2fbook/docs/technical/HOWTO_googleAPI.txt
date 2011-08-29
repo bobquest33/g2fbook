@@ -1,0 +1,3 @@
+http://code.google.com/intl/de-DE/apis/contacts/docs/3.0/developers_guide.html
+
+http://code.google.com/intl/de-DE/apis/accounts/docs/OAuth2.html
