@@ -1,0 +1,7 @@
+version in java
+= features =
+
+
+  * portable to all(java supported) platforms
+  * usage of a database to have a historie of the phonebooks
+  * downloading pictures from google and transfer to Fritz!Box
