@@ -51,7 +51,7 @@ public class GoogleService {
 		content.append("&service=").append(URLEncoder.encode("cp", "UTF-8"));
 		String tmpString = request(url, content.toString());
 		authTag = getAuthString(tmpString);
-		System.out.print("-.-." + authTag);
+		//TODO:System.out.print("-.-." + authTag);
 	}
 
 	public static String request(String url, String content) throws IOException {

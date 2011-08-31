@@ -6,5 +6,8 @@ public interface I_PropertyService {
 	public final static String PARAM_GOOGLE_PWD="google_pwd";
 	public final static String PARAM_GOOGLE_URL_LOGIN="google_url_login";
 	public final static String PARAM_GOOGLE_URL_PBOOK="google_url_pbook";
+	
+	public final static String PARAM_PATH_WORK="path_work";
+	
 		
 }
