@@ -9,5 +9,9 @@ public interface I_PropertyService {
 	
 	public final static String PARAM_PATH_WORK="path_work";
 	
-		
+	public final static String PARAM_FRITZ_USR="fritz_ftp_usr";
+	public final static String PARAM_FRITZ_PWD="fritz_ftp_pwd";
+	public final static String PARAM_FRITZ_SRV="fritz_ftp_srv";
+	public final static String PARAM_FRITZ_PATH="fritz_ftp_path";
+
 }
