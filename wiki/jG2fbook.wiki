@@ -7,10 +7,10 @@ version in java
   * downloading pictures from google and transfer to Fritz!Box
 
 = roadmap =
-*1. connection to google (for the future with googleAPI)
-*2. download phonebook from google
-*3. persist the phonebook to database (for the future there will be a history and restore functionality)
-*4. transform the phonebook
-*5. transfer to fritz!box via FTP !
-*-todo6: start telnetCommand to activate the new phonebook
-*-todo7: handle also the pictures (like in shellVersion)
+ * 1. connection to google (for the future with googleAPI)
+ * 2. download phonebook from google
+ * 3. persist the phonebook to database (for the future there will be a history and restore functionality)
+ * 4. transform the phonebook
+ * 5. transfer to fritz!box via FTP !
+ * -todo6: start telnetCommand to activate the new phonebook
+ * -todo7: handle also the pictures (like in shellVersion)
