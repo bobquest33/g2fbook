@@ -14,3 +14,4 @@ version in java
  * 5. transfer to fritz!box via FTP !
  * -todo6: start telnetCommand to activate the new phonebook
  * -todo7: handle also the pictures (like in shellVersion)
+ * -todo8: create a nice gui (maybe javaFX?)
