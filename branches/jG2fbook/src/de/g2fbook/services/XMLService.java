@@ -14,12 +14,9 @@ public class XMLService {
 	/**
 	 * Simple transformation method.
 	 * 
-	 * @param source
-	 *            - source xml .
-	 * @param xslt
-	 *            - xsltPath .
-	 * @param result
-	 *            - result .
+	 * @param source - source xml .
+	 * @param xslt - xsltPath .
+	 * @param result - result .
 	 */
 	public static String transform(String source, String xsltPath) {
 		TransformerFactory tFactory = TransformerFactory.newInstance();
