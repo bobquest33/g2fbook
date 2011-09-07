@@ -21,7 +21,7 @@ public class DatabaseService {
 		dbConnection = DriverManager.getConnection(
 				"jdbc:hsqldb:mem:DB_g2fbook", "sa", "");
 		statement = dbConnection.createStatement();
-		execute("CREATE TABLE phoneBook (phonebook_source VARCHAR(50) NOT NULL PRIMARY KEY, phonebook CLOB NOT NULL)");
+		execute("CREATE TABLE phoneBook (phonebook_source VARCHAR(50) NOT NULL PRIMARY KEY, phonebook CLOB NOT NULL, insertTime timestamp default current_timestamp)");
 		
 
 	}
@@ -51,7 +51,7 @@ public class DatabaseService {
 
 	}
 	public static void insertPhoneBook(String phonebook_source,String phonebook) throws Exception{
-		 PreparedStatement preparedStatement = dbConnection.prepareStatement("INSERT INTO phoneBook VALUES(?,?)");
+		 PreparedStatement preparedStatement = dbConnection.prepareStatement("INSERT INTO phoneBook (phonebook_source,phonebook) VALUES(?,?)");
         preparedStatement.setString(1, phonebook_source);
         preparedStatement.setString(2, phonebook);
         preparedStatement.execute();
