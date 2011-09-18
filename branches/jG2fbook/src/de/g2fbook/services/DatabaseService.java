@@ -20,6 +20,8 @@ public class DatabaseService {
 		Class.forName("org.hsqldb.jdbcDriver");
 		dbConnection = DriverManager.getConnection(
 				"jdbc:hsqldb:mem:DB_g2fbook", "sa", "");
+			//	"jdbc:hsqldb:file:DB_g2fbook", "sa", "");
+				
 		statement = dbConnection.createStatement();
 		execute("CREATE TABLE phoneBook (phonebook_source VARCHAR(50) NOT NULL PRIMARY KEY, phonebook CLOB NOT NULL, insertTime timestamp default current_timestamp)");
 		
@@ -35,11 +37,14 @@ public class DatabaseService {
 	public static void execute(String sql) throws Exception {
 		statement.execute(sql);
 	}
-	public static void query(String sql) throws Exception {
+	public static String query(String sql) throws Exception {
 		
-		
+		StringBuffer buffer =new StringBuffer();
 		  ResultSet rs=statement.executeQuery(sql);
-		  while(rs.next()) System.out.println(rs.getString(1)+"--"+rs.getString(2));
+		  while(rs.next()) buffer.append((rs.getString("2")));
+		  rs.close();
+		  
+		  return buffer.toString();
 		 
 	}
 	public static void main(String[] args) throws Exception {
