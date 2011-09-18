@@ -1,6 +1,7 @@
 package de.g2fbook.services;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,7 +36,7 @@ public class GoogleService {
 
 	public static String getPhoneBook(String url) throws Exception {
 
-		phoneBook = request(url, null);
+		phoneBook = requestString(url, null);
 		return phoneBook;
 
 	}
@@ -49,12 +50,39 @@ public class GoogleService {
 		content.append("&source=")
 				.append(URLEncoder.encode("g2fbook", "UTF-8"));
 		content.append("&service=").append(URLEncoder.encode("cp", "UTF-8"));
-		String tmpString = request(url, content.toString());
+		String tmpString = requestString(url, content.toString());
 		authTag = getAuthString(tmpString);
 		//TODO:System.out.print("-.-." + authTag);
 	}
 
-	public static String request(String url, String content) throws IOException {
+	
+	public static String  requestString(String url, String content) throws IOException {
+		InputStream is=request(url, content);
+		String tmpString = toString(is);
+		return tmpString;
+	}
+	
+	public static InputStream  requestInStream(String url, String content) throws IOException {
+		InputStream is=request(url, content);
+		
+		return is;
+	}
+	
+	public static byte[]  requestBytes(String url, String content) throws IOException {
+		InputStream is=request(url, content);
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		int c=0;
+		 while ((c = is.read()) != -1) {
+			 bos.write(c);
+         }
+		bos.flush();
+		byte[] ba = bos.toByteArray(); 
+		bos.close();
+		return ba;
+	}
+	
+	
+	public static InputStream request(String url, String content) throws IOException {
 		// Create a login request. A login request is a POST request that looks
 		// like
 		// POST /accounts/ClientLogin HTTP/1.0
@@ -91,8 +119,8 @@ public class GoogleService {
 			inputStream = urlConnection.getErrorStream();
 		}
 
-		String tmpString = toString(inputStream);
-		return tmpString;
+		
+		return inputStream;
 	}
 
 	/**
