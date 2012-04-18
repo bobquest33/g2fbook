@@ -19,7 +19,7 @@
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:at="http://www.w3.org/2005/Atom" xmlns:gd="http://schemas.google.com/g/2005" version="1.0">
-<xsl:output method="xml" version="1.0" encoding="iso-8859-1" indent="yes"/>
+<xsl:output method="xml" version="1.0" encoding="utf-8" indent="yes"/>
 
   <xsl:template match="/">
     <phonebooks>
@@ -37,7 +37,22 @@
         <realName>
           <xsl:value-of select="at:title"/>
         </realName>
-        <imageUrl/>
+     
+<xsl:variable name="imageUrl">
+<xsl:apply-templates select="at:link[@rel='http://schemas.google.com/contacts/2008/rel#photo']"/>
+</xsl:variable>
+
+
+<xsl:variable name="name">
+  <xsl:call-template name="last-substring-after">
+    <xsl:with-param name="string" select="$imageUrl"/>
+    <xsl:with-param name="separator" select="'/'"/>
+  </xsl:call-template>
+</xsl:variable>
+<xsl:if test="$name != ''">
+   <imageURL>file:///var/media/ftp/FlashDisk-01/FRITZ/fonpix/<xsl:value-of select="$name"/>.jpg</imageURL>
+</xsl:if>
+     
       </person>
       <telephony>
         <!-- if there are multiple number of one type (rel) use only the first one -->
@@ -53,6 +68,10 @@
         <ringVolume/>
       </setup>
     </contact>
+  </xsl:template>
+  
+  <xsl:template match="at:link">
+  <ImageURL><xsl:value-of select="./@href"/></ImageURL>
   </xsl:template>
 
   <xsl:template match="gd:email">
@@ -100,5 +119,26 @@
       <number type="{$type}" prio="{$prio}"><xsl:value-of select="$number"/></number>
     </xsl:if>
   </xsl:template>
+
+<!-- to seperate filename from url -->
+<!-- Template zur Ausgabe des Dateinamens: -->
+
+<xsl:template name="last-substring-after">
+  <xsl:param name="string"/>
+  <xsl:param name="separator"/>
+  <xsl:choose>
+    <xsl:when test="contains($string, $separator)">
+      <xsl:call-template name="last-substring-after">
+        <xsl:with-param name="string"
+                        select="substring-after($string, $separator)"/>
+        <xsl:with-param name="separator"
+                        select="$separator"/>
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$string"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
 
 </xsl:stylesheet>

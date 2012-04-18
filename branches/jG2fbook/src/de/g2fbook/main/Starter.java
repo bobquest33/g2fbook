@@ -33,7 +33,7 @@ public class Starter {
 		try {
 
 			// Initialising
-			PropertyService.init("private.properties");
+			PropertyService.init("./private.properties");
 
 			DatabaseService.init();
 

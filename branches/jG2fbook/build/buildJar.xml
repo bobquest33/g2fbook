@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project b1_featuresFor20 with Jar-in-Jar Loader">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="C:/Users/rico/Desktop/jG2fBook/g2jbook.jar">
+            <manifest>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="de.g2fbook.gui.MainWindow"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ hsqldb.jar jsch-0.1.44.jar commons-net-3.0.1.jar commons-net-examples-3.0.1.jar forms-1.3.0.jar"/>
+            </manifest>
+            <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="C:/Users/rico/Documents/development/b1_featuresFor20/bin"/>
+            <zipfileset dir="C:\Users\rico\Documents\development\b1_featuresFor20\lib" includes="hsqldb.jar"/>
+            <zipfileset dir="C:\Users\rico\Documents\development\b1_featuresFor20\lib" includes="jsch-0.1.44.jar"/>
+            <zipfileset dir="C:\Users\rico\Documents\development\b1_featuresFor20\lib" includes="commons-net-3.0.1.jar"/>
+            <zipfileset dir="C:\Users\rico\Documents\development\b1_featuresFor20\lib" includes="commons-net-examples-3.0.1.jar"/>
+            <zipfileset dir="C:\Users\rico\Documents\development\b1_featuresFor20" includes="forms-1.3.0.jar"/>
+        </jar>
+    </target>
+</project>
