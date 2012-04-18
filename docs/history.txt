@@ -1,3 +1,6 @@
+problem with firewall and windows7? Try this as admin on a console:
+netsh advfirewall set global StatefulFTP disable
+
 Version 1.0 2010-07-20
 	Initial release
 

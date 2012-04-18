@@ -134,7 +134,7 @@ public class TelnetService
 			StringBuffer sb = new StringBuffer();
 			char ch = (char) in.read();
 			while (true) {
-				System.out.print(ch);
+				//System.out.print(ch);
 				sb.append(ch);
 				if (ch == lastChar) {
 					if (sb.toString().endsWith(pattern)) {

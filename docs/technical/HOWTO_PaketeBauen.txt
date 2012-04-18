@@ -1,1 +1,2 @@
 http://www.lug-kr.de/wiki/DebianPaketeBauen
+http://wiki.debian.org/Java/Packaging
